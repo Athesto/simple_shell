@@ -1,0 +1,28 @@
+./" This is our man page for the project Basic shell
+.TH man 1 "20 August 2020" "0.1" "HShell man page"
+.SH NAME
+.B hshell
+- Mini shell for Holberton School
+
+./" This is the synopsis
+.SH SYNOPSIS
+#include "holberton.h"
+
+hsh 
+.B [option] [file]
+
+
+.SH DESCRIPTION
+The basic shell
+
+
+.SH EXAMPLES 
+
+
+.SH OPTIONS
+
+.SH AUTHOR(S)
+Written by
+.B Juliana Monroy Pérez
+,
+.B Gustavo Mejía Sánchez
