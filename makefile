@@ -23,3 +23,6 @@ clear:
 
 1: mainpath=test/main.c
 
+man:
+	clear
+	man ./man_shell
