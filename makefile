@@ -1,6 +1,5 @@
 flags=-g -Wall -Wextra -Werror -pedantic
-mainpath=test/main.c
-header=
+header=holberton.h
 args=
 out_file=hsh
 
