@@ -8,7 +8,7 @@
 .SH SYNOPSIS
 #include "holberton.h"
 
-hsh 
+hsh
 .B [option] [file]
 
 
@@ -16,7 +16,7 @@ hsh
 The basic shell
 
 
-.SH EXAMPLES 
+.SH EXAMPLES
 
 
 .SH OPTIONS
