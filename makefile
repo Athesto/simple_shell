@@ -19,7 +19,7 @@ c:
 	clear
 
 clear:
-	rm a.out
+	@test ! -e $(out_file) || rm $(out_file)			#if $(out_file) exist, delete it
 
 1: mainpath=test/main.c
 
