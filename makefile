@@ -7,7 +7,7 @@ run=
 
 1:
 2: in_files=test/main.c
-3: in_files=_getline.c test/main1.c
+3: in_files=_getline.c test/test_getline.c
 
 %:
 	@test ! -e $(out_file) || rm $(out_file)			#if $(out_file) exist, delete it
@@ -20,6 +20,8 @@ run=
 	elif [ "$(run)" = "g" ]; then \
 		echo gdb --args ./$(out_file) $(args); \
 		gdb --args ./$(out_file) $(args); \
+	elif [ "$(run)" = "norun" ]; then \
+		exit 0; \
 	else \
 		echo ./$(out_file) $(args); \
 		./$(out_file) $(args); \
