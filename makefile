@@ -1,13 +1,19 @@
 flags=-g -Wall -Wextra -Werror -pedantic
 header=holberton.h
 args=
+in_files=*.c
 out_file=hsh
+run=
+
+1:
+2: in_files=test/main.c
+3: in_files=_getline.c test/main1.c
 
 %:
 	@test ! -e $(out_file) || rm $(out_file)			#if $(out_file) exist, delete it
-	betty *.c $(mainpath) $(header)
+	betty $(in_files) $(header)
 	#Use as argument: run=v for run (v)algrind with the program or run=g for (g)db
-	gcc $(flags) *.c $(mainpath) -o $(out_file)
+	gcc $(flags) $(in_files) -o $(out_file)
 	@if [ "$(run)" = "v" ]; then \
 		echo valgrind ./$(out_file) $(args); \
 		valgrind ./$(out_file) $(args); \
@@ -24,8 +30,6 @@ c:
 
 clear:
 	@test ! -e $(out_file) || rm $(out_file)			#if $(out_file) exist, delete it
-
-1: mainpath=test/main.c
 
 man:
 	clear
