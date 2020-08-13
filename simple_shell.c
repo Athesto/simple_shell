@@ -1,6 +1,8 @@
 #include "holberton.h"
 #define TRUE 1
-#define PROMPT "\033[35m#jgsh$\033[0m "
+#define MAGENTA "\033[35m"
+#define RESETFMT "\033[0m"
+#define PROMPT MAGENTA"#jgsh$ "RESETFMT
 void loop(void);
 void handler(int);
 /**
