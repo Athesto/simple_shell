@@ -1,5 +1,6 @@
 #include "holberton.h"
 #define TRUE 1
+#define PROMPT "\033[35m#jgsh$\033[0m "
 void loop(void);
 void handler(int);
 /**
@@ -44,5 +45,7 @@ void handler(int num)
 {
 	char *PS1 = PROMPT; /* prompt */
 
-	free(line);
+	_putchar('\n');
+	_puts(PS1);
+	(void)num;
 }
