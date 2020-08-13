@@ -33,7 +33,7 @@ void loop(void)
 	int i;
 	ssize_t nbytes; /* Number of bytes for getline funct */
 	char *PS1 = PROMPT; /* Char variable for prompt */
-	
+	pid_t child_pid;
 
 	/* Allocate memory for listing arguments */
 	args = malloc(NARGS * sizeof(*args));
@@ -73,13 +73,10 @@ void loop(void)
 		{
 			if (execve(args[0], args, NULL) == -1)
 			{
-				perror();
+				perror("./hsh");
+				exit(EXIT_FAILURE);
 			}
-			
 		}
-		
-
-
 		/* Printing arguments if it exist */
 		i = 0;
 		while (args[i])
