@@ -11,4 +11,5 @@
 int _getline(char **lineptr, size_t *n, FILE *stream);
 void _puts(char *str);
 int _putchar(char c);
+char **_getpath(char **env);
 #endif /* _HOLBERTON_H_ */
