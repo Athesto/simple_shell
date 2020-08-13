@@ -14,51 +14,73 @@ int main(void)
 	/* Redirect Interrupt signal to handler function */
 	signal(SIGINT, handler);
 
-	loop(); /*infinitive command loop*/
+	loop(); /*infinite command loop*/
 
 	return (EXIT_SUCCESS);
 }
 
 #define BUFSIZE 1
-#define nargs 16
-#define splitchars " \t"
+#define NARGS 16
+#define SPLITCHARS " \t"
 /**
  * loop - shell loop
  */
 void loop(void)
 {
-
-	char *line;
-	char **args;
-	size_t n = BUFSIZE;
+	char *line; /* Line pointer for getline funct */
+	char **args; /* Arguments variable */
+	size_t bufsize = BUFSIZE; /*Variable size of buffer*/
 	int i;
-	ssize_t nbytes;
-	char *PS1 = PROMPT; /* prompt */
+	ssize_t nbytes; /* Number of bytes for getline funct */
+	char *PS1 = PROMPT; /* Char variable for prompt */
+	
 
+	/* Allocate memory for listing arguments */
+	args = malloc(NARGS * sizeof(*args));
+	/* Allocate memory for input data */
+	line = malloc(bufsize * sizeof(*line));
 
-	args = malloc(nargs * sizeof(*args));
-
-	line = malloc(n * sizeof(*line));
-	while (TRUE)
+	while (TRUE) /* Infinite while */
 	{
-		_puts(PS1);
-		nbytes = getline(&line, &n, stdin);
-		if (nbytes == EOF)
+		_puts(PS1); /* Print prompt */
+
+		/* Get the number of bytes from getline */
+		nbytes = getline(&line, &bufsize, stdin);
+		if (nbytes == EOF) /* Checking for <C-d> */
 		{
-			_putchar('\n');
-			break;
+			_putchar('\n'); /* go to new line */
+			break; /* Exit infinite while */
 		}
-		line[nbytes - 1] = 0;
+		line[nbytes - 1] = 0; /* Removing '\n' */
 		printf("(%d) %s\n", (int)nbytes, line);
 
-		/* cmd */
-		args[0] = strtok(line, splitchars);
+		/* args[0] pointing to the input program */
+		args[0] = strtok(line, SPLITCHARS);
 
-		i = 1;
-		while ((args[i] = strtok(NULL, splitchars)) != NULL)
+		i = 1; /* starting from arg 1 */
+		/* args array pointng to the program arguments */
+		while ((args[i] = strtok(NULL, SPLITCHARS)) != NULL)
 		{
-			i++;
+			i++; /* Increasing step */
 		}
+
+		child_pid = fork();
+		if (child_pid > 0)
+		{
+			wait(0);
+		}
+		else if (child_pid == 0)
+		{
+			if (execve(args[0], args, NULL) == -1)
+			{
+				perror();
+			}
+			
+		}
+		
+
+
+		/* Printing arguments if it exist */
 		i = 0;
 		while (args[i])
 		{
@@ -67,12 +89,12 @@ void loop(void)
 		}
 	}
 	free(line);
-	free(args);
+	free(args); /* Free malloc */
 	(void)args;
 }
 /**
- * handler - interruption routine
- * @num: ?
+ * handler - Interruption routine
+ * @num: unused variable
  */
 void handler(int num)
 {
