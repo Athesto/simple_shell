@@ -6,8 +6,8 @@
  */
 int main(void)
 {
-	char *buffer; /* We create Buffer, size for the entry parameters for _getline */
-	size_t size = BUFSIZE; /* BUFSIZE is size 1024 asigned to variable size */
+	char *buffer; /*We create Buffer, size for the entry parameters to _getline*/
+	size_t size = BUFSIZE; /*BUFSIZE is size 1024 asigned to variable Size*/
 	size_t charct;
 
 	buffer = malloc(sizeof(char) * size);
@@ -20,7 +20,7 @@ int main(void)
 	printf(">$ ");
 	charct = _getline(&buffer, &size, stdin);
 	printf("the characters printed are %u.\n", (unsigned int) charct);
-	printf("type: %s", buffer);
+	printf("Message received: %s", buffer);
 
 	return (0);
 }
