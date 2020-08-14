@@ -3,16 +3,16 @@
 #include <stdlib.h> /* malloc, free */
 
 /**
- * _getpath - get path from the env variable
- * _getpath use malloc inside and need a free
- * @env: env list
- * Return: path list
+ * _getpath - get the PATH from the ENV variable
+ * _getpath use malloc internally and need to be free with free()
+ * Return: A list with the elements of the PATH
  */
-char **_getpath(char **env)
+char **_getpath(void)
 {
-	char **ptr = env;	/* seeking pointer */
-	char **path;		/* output list */
-	int p_idx;			/* path index*/
+	extern char **environ;
+	char **ptr = environ;	/* seeking pointer */
+	char **path;			/* output list */
+	int p_idx;				/* path index*/
 	/* check invalid input */
 	if (!ptr || !*ptr)	/* check if env exist and if list is not NULL */
 		return (NULL);
