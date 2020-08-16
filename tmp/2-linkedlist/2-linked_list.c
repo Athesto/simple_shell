@@ -40,11 +40,8 @@ int main(void)
 	print_list(head);	/* print list */
 	free_list(head);	/* free list */
 	
-	puts(PATH_backup);	/* Debug: PATH_*/
+	puts(PATH_backup);	/* Debug: PATH */
 	puts("=========");
-	puts(cp_PATH);
-
-	free(cp_PATH);
-	(void)head;
+	free(PATH_backup); 	/* free PATH */
 	return (0);
 }
