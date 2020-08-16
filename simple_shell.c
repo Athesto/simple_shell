@@ -1,8 +1,8 @@
 #include "holberton.h"
 #define TRUE 1
 #define MAGENTA "\033[35m"
-#define RESETFMT "\033[0m"
-#define PROMPT MAGENTA"#jgsh$ "RESETFMT
+#define RSTFMT "\033[0m"
+#define PROMPT MAGENTA"#jgsh$ "RSTFMT
 void loop(void);
 void handler(int);
 /**
@@ -28,9 +28,9 @@ int main(void)
 void loop(void)
 {
 	char *line; /* Line pointer for getline funct */
-	char **args; /* Arguments variable */
-	size_t bufsize = BUFSIZE; /*Variable size of buffer*/
-	int i;
+	char **args; /* List of Arguments */
+	int i; /* Arguments' counter */
+	size_t bufsize = BUFSIZE; /* Size of buffer (line) */
 	ssize_t nbytes; /* Number of bytes for getline funct */
 	char *PS1 = PROMPT; /* Char variable for prompt */
 	pid_t child_pid;
