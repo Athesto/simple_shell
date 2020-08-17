@@ -1,7 +1,4 @@
-#include <stdio.h> /* puts, printf */
-#include <string.h> /* strtok, */
-#include <stdlib.h> /* malloc, free */
-
+#include "holberton.h"
 /**
  * _getpath - get the PATH from the ENV variable
  * _getpath use malloc internally and need to be free with free()
@@ -9,7 +6,6 @@
  */
 char *_getpath(void)
 {
-	extern char **environ;
 	int e_idx;		/* enviroment index */
 	/* check invalid input */
 	if (!environ || !*environ)	/* check if env exist and if list is not NULL */
@@ -20,5 +16,5 @@ char *_getpath(void)
 	while (strncmp(environ[e_idx], "PATH=", 5)) /* compare the 5 first char */
 		e_idx++;
 
-	return(environ[e_idx]); 
+	return (environ[e_idx]);
 }
