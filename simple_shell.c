@@ -75,7 +75,7 @@ void loop(char *shellname)
 		}
 		else if (child_pid == 0)
 		{
-			if (execve(args[0], args, NULL) == -1)
+			if (exec_cmd(args[0], args) == -1)
 			{
 				sprintf(errmsg, "%s: %d",shellname, counter);
 				perror(errmsg);
