@@ -3,19 +3,19 @@
 #define MAGENTA "\033[35m"
 #define RSTFMT "\033[0m"
 #define PROMPT MAGENTA"#jgsh$ "RSTFMT
-void loop(void);
-void handler(int);
 /**
  * main - basic shell
+ * @argc: argument counter
+ * @argv: argument values
  * Return: ?
  */
-int main(void)
+int main(int argc, char *argv[])
 {
 	/* Redirect Interrupt signal to handler function */
 	signal(SIGINT, handler);
 
-	loop(); /*infinite command loop*/
-
+	loop(argv[0]); /*infinite command loop*/
+	(void)argc;
 	return (EXIT_SUCCESS);
 }
 
@@ -24,8 +24,9 @@ int main(void)
 #define SPLITCHARS " \t"
 /**
  * loop - shell loop
+ * @shellname: name of shell
  */
-void loop(void)
+void loop(char *shellname)
 {
 	char *line; /* Line pointer for getline funct */
 	char **args; /* List of Arguments */
