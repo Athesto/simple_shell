@@ -3,19 +3,19 @@
 #define MAGENTA "\033[35m"
 #define RSTFMT "\033[0m"
 #define PROMPT MAGENTA"#jgsh$ "RSTFMT
-void loop(void);
-void handler(int);
 /**
  * main - basic shell
+ * @argc: argument counter
+ * @argv: argument values
  * Return: ?
  */
-int main(void)
+int main(int argc, char *argv[])
 {
 	/* Redirect Interrupt signal to handler function */
 	signal(SIGINT, handler);
 
-	loop(); /*infinite command loop*/
-
+	loop(argv[0]); /*infinite command loop*/
+	(void)argc;
 	return (EXIT_SUCCESS);
 }
 
@@ -24,8 +24,9 @@ int main(void)
 #define SPLITCHARS " \t"
 /**
  * loop - shell loop
+ * @shellname: name of shell
  */
-void loop(void)
+void loop(char *shellname)
 {
 	char *line; /* Line pointer for getline funct */
 	char **args; /* List of Arguments */
@@ -33,6 +34,8 @@ void loop(void)
 	size_t bufsize = BUFSIZE; /* Size of buffer (line) */
 	ssize_t nbytes; /* Number of bytes for getline funct */
 	char *PS1 = PROMPT; /* Char variable for prompt */
+	int counter = 0; /* loop counter */
+	char errmsg[64]; /* error message */
 	pid_t child_pid;
 
 	/* Allocate memory for listing arguments */
@@ -42,6 +45,7 @@ void loop(void)
 
 	while (TRUE) /* Infinite while */
 	{
+		counter++;
 		_puts(PS1); /* Print prompt */
 
 		/* Get the number of bytes from getline */
@@ -71,9 +75,10 @@ void loop(void)
 		}
 		else if (child_pid == 0)
 		{
-			if (execve(args[0], args, NULL) == -1)
+			if (exec_cmd(args[0], args) == -1)
 			{
-				perror("./hsh");
+				sprintf(errmsg, "%s: %d",shellname, counter);
+				perror(errmsg);
 				exit(EXIT_FAILURE);
 			}
 		}

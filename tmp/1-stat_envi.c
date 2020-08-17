@@ -12,8 +12,8 @@ int main(void)
 {
 	char *cmds[] =
 	{
-		"ls",
 		"/bin/ls",
+		"ls",
 		"lsdlsd",
 		NULL
 	}; /* list of commands */
