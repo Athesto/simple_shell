@@ -1,0 +1,84 @@
+#include "../holberton.h"
+#include <sys/types.h>	/* stat */
+#include <sys/stat.h>	/* stat */
+#include <unistd.h>		/* stat */
+
+char *getFullcmd(char *cmd);
+
+/**
+ * main:
+*/
+int main(void)
+{
+	char *cmd; /* ex: ls */
+	char *cmd_FULLPATH; /* ex: expected /bin/ls */
+
+	cmd = "ls";
+	cmd_FULLPATH = getFullcmd(cmd);
+	printf("%s\n", cmd_FULLPATH);
+	free(cmd_FULLPATH);
+	
+	cmd = "/bin/ls";
+	cmd_FULLPATH = getFullcmd(cmd);
+	printf("%s\n", cmd_FULLPATH);
+	free(cmd_FULLPATH);
+	
+	cmd = "lssdf";
+	cmd_FULLPATH = getFullcmd(cmd);
+	printf("%s\n", cmd_FULLPATH);
+	free(cmd_FULLPATH);
+
+	return (0);
+}
+
+/**
+ * getFullcmd - search the full path of a command in the PATH
+ * @cmd: pointer to input command
+ * Return: A pointer with the full PATH command 
+ * if exist otherwise it return a  NULL
+ */
+char *getFullcmd(char *cmd)
+{
+	char *fullcmd = NULL; /* full command path */
+	char *myPATH; /* List of directories in the PATH */
+	struct stat st; /* A structure with the file status information */
+	int cmd_len = strlen(cmd); /* Len of the input command */
+
+	if (!cmd)
+		return (NULL);
+	/* duplicate cmd in fullcmd */
+	fullcmd = strdup(cmd);
+	if (!fullcmd) /* check if memmory was not allocated */
+	{
+		perror("memory not allocated");
+		return (NULL);
+	}
+	if (stat(fullcmd, &st) == 0) /* check if file exist in full command */
+		return (fullcmd); 
+		/* Note: fullcmd use strdup because it need to be free in other cases */
+
+	/* if file doesn't exist, search it in the PATH */
+	myPATH = _getpath();
+	if (!myPATH) /* check if memmory was not allocated */
+	{
+		perror("PATH not found");
+		return (NULL);
+	}
+
+	
+
+	strtok(myPATH, )
+	while()
+	{
+		/* fullcmd = myPATH + cmd; */
+		fullcmd = realloc(fullcmd, cmd_len + strlen(myPATH[p_idx]) + 2);
+		strcpy(fullcmd, myPATH[p_idx]);
+		strcat(fullcmd,"/");
+		strcat(fullcmd,cmd);
+		if (stat(fullcmd, &st) == 0) /* check if file exist in full command */
+			break;
+		p_idx++;
+	}
+	free(myPATH);
+	return (fullcmd);
+}

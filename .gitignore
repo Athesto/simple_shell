@@ -1,5 +1,5 @@
 .*.swp
 *#
 hsh
-tmp/
+a.out
 .vscode
