@@ -1,0 +1,49 @@
+#include <stdio.h> /* puts, printf */
+#include <string.h> /* strtok, */
+#include <stdlib.h> /* malloc, free */
+
+/**
+ * _getpath - get the PATH from the ENV variable
+ * _getpath use malloc internally and need to be free with free()
+ * Return: A list with the elements of the PATH
+ */
+char **_getpath(void)
+{
+	extern char **environ;
+	char **path;	/* output list */
+	int p_idx;		/* path index*/
+	int e_idx;		/* enviroment index */
+	/* check invalid input */
+	if (!environ || !*environ)	/* check if env exist and if list is not NULL */
+		return (NULL);
+
+	/* search PATH variable in ENV */
+	e_idx=0;
+	while (strncmp(environ[e_idx], "PATH=", 5)) /* compare the 5 first char */
+		e_idx++;
+	printf("Primero:\n");
+	puts(environ[e_idx]); /* Debug: display PATH variable */
+
+	/* alloc memory for first path's directory */
+	p_idx = 0;
+	path = malloc((p_idx + 1) * sizeof(*path));
+	if (!path)
+		return (NULL);
+	path[0] = strdup(environ[e_idx]); /**/
+	strtok(path[0], "="); /* set strtok pointing at first value of path */
+
+	p_idx = 1; /* initialize path index */
+	path = realloc(path, (p_idx + 1) * sizeof(*path));
+	while ((path[p_idx] = strtok(NULL, ":"))) /**/
+	{
+		p_idx++; /* set index to the next position */
+		/* reallocate memory for new position*/
+		path = realloc(path, (p_idx + 1) * sizeof(*path));
+		if (!path)
+			return (NULL);
+	}
+	printf("Segundo:\n");
+	puts(environ[e_idx]);
+	puts("===fin _getpath===");
+	return (path);
+}
