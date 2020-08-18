@@ -37,6 +37,7 @@ void loop(char *shellname)
 	int counter = 0;		  /* loop counter */
 	char errmsg[64];		  /* error message */
 	pid_t child_pid;
+	int istty;
 
 	/* Allocate memory for listing arguments */
 	args = malloc(NARGS * sizeof(*args));
@@ -46,13 +47,16 @@ void loop(char *shellname)
 	while (TRUE) /* Infinite while */
 	{
 		counter++;
-		_puts(PS1); /* Print prompt */
+		istty = isatty(STDIN_FILENO);
+		if (istty == 1)
+			_puts(PS1); /* Print prompt */
 
 		/* Get the number of bytes from getline */
 		nbytes = getline(&line, &bufsize, stdin);
 		if (nbytes == EOF) /* Checking for <C-d> */
 		{
-			_putchar('\n'); /* go to new line */
+			if(istty == 1)
+				_putchar('\n'); /* go to new line */
 			break;			/* Exit infinite while */
 		}
 		line[nbytes - 1] = 0; /* Removing '\n' */
@@ -79,7 +83,7 @@ void loop(char *shellname)
 		{
 			if (exec_cmd(args[0], args) == -1)
 			{
-				sprintf(errmsg, "%s: %d", shellname, counter);
+				sprintf(errmsg, "%s: %d: %s", shellname, counter, args[0]);
 				perror(errmsg);
 				exit(EXIT_FAILURE);
 			}
