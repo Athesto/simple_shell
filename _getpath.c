@@ -8,12 +8,14 @@ char *_getpath(void)
 {
 	int e_idx;		/* enviroment index */
 	/* check invalid input */
-	if (!environ || !*environ)	/* check if env exist and if list is not NULL */
+	/* check if env exist and if list is not NULL */
+	if (!environ || !*environ)
 		return (NULL);
 
 	/* search PATH variable in ENV */
 	e_idx = 0;
-	while (strncmp(environ[e_idx], "PATH=", 5)) /* compare the 5 first char */
+	/* compare the 5 first char */
+	while (strncmp(environ[e_idx], "PATH=", 5))
 		e_idx++;
 
 	return (environ[e_idx]);
