@@ -57,7 +57,7 @@ void loop(char *shellname)
 		nbytes = getline(&line, &bufsize, stdin);
 		if (nbytes == EOF) /* Checking for <C-d> */
 		{
-			if(istty == 1)
+			if (istty == 1)
 				_putchar('\n'); /* go to new line */
 			break;			/* Exit infinite while */
 		}
