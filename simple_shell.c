@@ -2,7 +2,7 @@
 #define TRUE 1
 #define MAGENTA "\033[35m"
 #define RSTFMT "\033[0m"
-#define PROMPT MAGENTA"#jgsh$ "RSTFMT
+#define PROMPT MAGENTA "#jgsh$ " RSTFMT
 /**
  * main - basic shell
  * @argc: argument counter
@@ -28,14 +28,14 @@ int main(int argc, char *argv[])
  */
 void loop(char *shellname)
 {
-	char *line; /* Line pointer for getline funct */
-	char **args; /* List of Arguments */
-	int i; /* Arguments' counter */
+	char *line;				  /* Line pointer for getline funct */
+	char **args;			  /* List of Arguments */
+	int i;					  /* Arguments' counter */
 	size_t bufsize = BUFSIZE; /* Size of buffer (line) */
-	ssize_t nbytes; /* Number of bytes for getline funct */
-	char *PS1 = PROMPT; /* Char variable for prompt */
-	int counter = 0; /* loop counter */
-	char errmsg[64]; /* error message */
+	ssize_t nbytes;			  /* Number of bytes for getline funct */
+	char *PS1 = PROMPT;		  /* Char variable for prompt */
+	int counter = 0;		  /* loop counter */
+	char errmsg[64];		  /* error message */
 	pid_t child_pid;
 
 	/* Allocate memory for listing arguments */
@@ -53,10 +53,10 @@ void loop(char *shellname)
 		if (nbytes == EOF) /* Checking for <C-d> */
 		{
 			_putchar('\n'); /* go to new line */
-			break; /* Exit infinite while */
+			break;			/* Exit infinite while */
 		}
 		line[nbytes - 1] = 0; /* Removing '\n' */
-		printf("(%d) %s\n", (int)nbytes, line);
+		/* printf("(%d) %s\n", (int)nbytes, line); */
 
 		/* args[0] pointing to the input program */
 		args[0] = strtok(line, SPLITCHARS);
@@ -72,23 +72,27 @@ void loop(char *shellname)
 		if (child_pid > 0)
 		{
 			wait(0);
+			if (args && *args && strcmp(args[0], "exit") == 0)
+				exit(EXIT_SUCCESS);
 		}
 		else if (child_pid == 0)
 		{
 			if (exec_cmd(args[0], args) == -1)
 			{
-				sprintf(errmsg, "%s: %d",shellname, counter);
+				sprintf(errmsg, "%s: %d", shellname, counter);
 				perror(errmsg);
 				exit(EXIT_FAILURE);
 			}
 		}
 		/* Printing arguments if it exist */
-		i = 0;
-		while (args[i])
-		{
-			printf("%s\n", args[i]);
-			i++;
-		}
+		/*
+		*i = 0;
+		*while (args[i])
+		*{
+		*	printf("%s\n", args[i]);
+		*	i++;
+		*}
+		*/
 	}
 	free(line);
 	free(args); /* Free malloc */
