@@ -7,8 +7,8 @@
 #include <unistd.h>  /* size_t, write */
 #include <string.h> /* strtok */
 #include <signal.h> /* signal */
-#include <sys/stat.h>	/* stat */
-
+#include <sys/stat.h> /* stat */
+#include <limits.h> /* MIN_INT */
 extern char **environ;
 
 typedef struct stat stat_t;

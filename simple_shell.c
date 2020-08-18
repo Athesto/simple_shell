@@ -3,6 +3,8 @@
 #define MAGENTA "\033[35m"
 #define RSTFMT "\033[0m"
 #define PROMPT MAGENTA "#jgsh$ " RSTFMT
+
+char *strcatnum(char *str, int num);
 /**
  * main - basic shell
  * @argc: argument counter
@@ -113,4 +115,47 @@ void handler(int num)
 	_putchar('\n');
 	_puts(PS1);
 	(void)num;
+}
+
+/**
+ * strcatnum - concat int number in string
+ * @str: destination string
+ * @num: source integer
+ * Return: pointer to destination string
+ */
+char *strcatnum(char *str, int num)
+{
+	int s_idx = 0;
+	int tens = 1;
+	unsigned int tmp;
+
+	while (str[s_idx])
+		s_idx++;
+
+	if (num < 0)
+	{
+		str[s_idx] = '-';
+		num = -num;
+	}
+	tmp = num;
+	if (num == INT_MIN)
+	{
+		tmp++;
+	}
+	while (tmp > 9)
+	{
+		tens = tens * 10;
+		 tmp = tmp / 10;
+	}
+
+	tmp = num;
+	while (tens > 0)
+	{
+		str[s_idx] = ('0' + tmp / tens);
+		s_idx++;
+		tmp %= tens;
+		tens /= 10;
+	}
+
+	return (str);
 }
