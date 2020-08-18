@@ -5,54 +5,83 @@ We're creating our own Shell, it's part of the Holberton School projects.
 
 ---
 ## Autorized fuctions and macros:
-* `access (man 2 access)`
-* chdir (man 2 chdir)
-* `close (man 2 close)`
-* closedir (man 3 closedir)
+* `chdir (man 2 chdir)`
 * `execve (man 2 execve)`
 * `exit (man 3 exit)`
-* _exit (man 2 _exit)
-* fflush (man 3 fflush)
 * `fork (man 2 fork)`
-* free (man 3 free)
-* getcwd (man 3 getcwd)
+* `free (man 3 free)`
 * `getline (man 3 getline)`
-* isatty (man 3 isatty)
-* kill (man 2 kill)
+* `isatty (man 3 isatty)`
 * `malloc (man 3 malloc)`
-* `open (man 2 open)`
-* opendir (man 3 opendir)
 * `perror (man 3 perror)`
-* read (man 2 read)
-* readdir (man 3 readdir)
-* signal (man 2 signal)
-* stat (__xstat) (man 2 stat)
-* lstat (__lxstat) (man 2 lstat)
-* fstat (__fxstat) (man 2 fstat)
+* `signal (man 2 signal)`
+* `stat (__xstat) (man 2 stat)`
 * `strtok (man 3 strtok)`
-* wait (man 2 wait)
-* waitpid (man 2 waitpid)
-* wait3 (man 2 wait3)
-* wait4 (man 2 wait4)
+* `wait (man 2 wait)`
 * `write (man 2 write)`
 
 ---
 ## Content
+---
 
-*Function Description*
+### *How is it composed?*
 
-/*Here goes the function description*/
+- **PID & PPID**
+
+A process is an instance of an executing program, that has a unique process ID. This process ID is used by many functions and system calls to interact with and manipulate processes. In order to retrieve the current process’ ID, getpid (man 2 getpid)
+
+- **Arguments**
+
+The command line arguments are passed through the main function: int main(int ac, char **av);
+
+av is a NULL terminated array of strings
+ac is the number of items in av
+av[0] usually contains the name used to invoke the current program. av[1] is the first argument of the program, av[2] the second, and so on.
+
+- **Executing a program**
+
+The system call execve allows a process to execute another program (man 2 execve). Note that this system call does load the new program into the current process’ memory in place of the “previous” program: on success execve does not return to continue the rest of the “previous” program.
+
+- **Creating processes**
+
+The system call fork (man 2 fork) creates a new child process, almost identical to the parent. Once fork successfully returns, two processes continue to run the same program, but with different stacks, datas and heaps.
+
+- **Wait**
+
+The wait system call (man 2 wait) suspends execution of the calling process until one of its children terminates.
+
+
+- **File information**
+
+The stat (man 2 stat) system call gets the status of a file (If it exists or not). On success, zero is returned. On error, -1 is returned.
+
+- **Environment**
+
+Environment variables are “stored”. The list is an array of strings, with the following format: var=value, where var is the name of the variable and value its value.
+
+-----
+## How the shell works?
+
+The shell reads its standard input from your terminal, and sends its standard output and standard error back to your terminal unless you tell it to send them elsewhere. Is line oriented; it does not process your commands until you press *Enter* to indicate the end of a line.
+
+The shell splits the line into tokens. A token is a command, variable, or other symbol recognized by the shell. It continues to build up a sequence of tokens until it comes to a reserved word function name, or operator
+
+
+![Shell Example](Shell.png)
+
+---
+
 
 ----
 ## AUTHORS
  Gustavo Mejía
  [@Athesto](https://github.com/Athesto)  
- twitter: 
+ Twitter: 
  [@im_tavo](https://twitter.com/im_tavo)
 
  Juliana Monroy 
  [@julianamonr03](https://github.com/julianamonr03)  
- twitter: 
+ Twitter: 
  [@julianamonroy03](https://twitter.com/julianamonroy03)
 
 ----
