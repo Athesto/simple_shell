@@ -5,15 +5,9 @@
  */
 int main (void)
 {
-	char **myPATH; 	/* PATH */
-	int p_index; 	/* myPATH index */
+	char *myPATH; 	/* PATH */
 
 	myPATH = _getpath();
-	p_index = 0;
-	while(myPATH[p_index])
-	{
-		printf("%s\n", myPATH[p_index]);
-		p_index++;
-	}
+	puts(myPATH);
 	return (0);
-} 
+}
