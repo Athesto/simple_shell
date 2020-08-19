@@ -12,3 +12,6 @@ flags=-g -Wall -Wextra -Werror -pedantic
 
 5:
 	gcc $(flags)  5-p_func2.c ../_builtins_func.c
+
+6:
+	gcc $(flags)  6-*
