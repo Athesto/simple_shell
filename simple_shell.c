@@ -91,7 +91,8 @@ void loop(char *shellname)
 				_strcat(errmsg, ": ");
 				_strcat(errmsg, args[0]);
 				_strcat(errmsg, ": not found\n");
-				fprintf(stderr, "%s", errmsg);
+				_fputs(STDERR_FILENO, errmsg);
+				/*fprintf(stderr, "%s", errmsg);*/
 
 				exit(EXIT_FAILURE);
 			}
