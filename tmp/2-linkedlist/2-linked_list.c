@@ -24,7 +24,7 @@ int main(void)
 	while ((*cp_PATH++) != '=')
 		;
 	/* duplicate the string pointd by cp_PATH and cp_PATH points to new location */
-	cp_PATH = strdup(cp_PATH);
+	cp_PATH = _strdup(cp_PATH);
  	/* 1: changed 1rst ':' to '\0' (this operation split cp_PATH at ':')
 	 * 2: tmp points to left side of splited cp_PATH */ 
 	tmp = strtok(cp_PATH, ":");
