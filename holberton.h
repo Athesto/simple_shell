@@ -9,6 +9,7 @@
 #include <signal.h> /* signal */
 #include <sys/stat.h> /* stat */
 #include <limits.h> /* MIN_INT */
+
 extern char **environ;
 
 typedef struct stat stat_t;
@@ -34,4 +35,5 @@ void handler(int);
 int get_env(void *nothing);
 int get_exit(void *args);
 int _operator(char **args);
+char *_strcat(char *dest, char *src);
 #endif /* _HOLBERTON_H_ */
