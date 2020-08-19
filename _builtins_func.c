@@ -36,7 +36,8 @@ int get_env(void *nothing)
 
 	for (p_idx = 0; environ[p_idx]; p_idx++)
 	{
-		printf("%s\n", environ[p_idx]);
+		_puts(environ[p_idx]);
+		_putchar('\n');
 	}
 	(void)(nothing);
 	exit(EXIT_SUCCESS);
