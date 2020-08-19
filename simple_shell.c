@@ -92,6 +92,8 @@ void loop(char *shellname)
 					_strcat(errmsg, args[1]);
 					_strcat(errmsg, "\n");
 					_fputs(STDERR_FILENO, errmsg);
+					if (istty != 1)
+						exit(2);
 				}
 			}
 		}
@@ -106,7 +108,6 @@ void loop(char *shellname)
 				_strcat(errmsg, args[0]);
 				_strcat(errmsg, ": not found\n");
 				_fputs(STDERR_FILENO, errmsg);
-
 				exit(EXIT_FAILURE);
 			}
 		}
