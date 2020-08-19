@@ -36,4 +36,6 @@ int get_env(void *nothing);
 int get_exit(void *args);
 int _operator(char **args);
 char *_strcat(char *dest, char *src);
+int _strcmp(const char *s1, const char *s2);
+char *_strcpy(char *dest, const char *src);
 #endif /* _HOLBERTON_H_ */
