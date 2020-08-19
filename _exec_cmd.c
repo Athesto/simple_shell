@@ -33,8 +33,8 @@ int exec_cmd(char *cmd, char **args)
 	while ((ptr_dir = strtok(NULL, ":")))
 	{
 		strcpy(tmp, ptr_dir);
-		tmp = strcat(tmp, "/");
-		tmp = strcat(tmp, cmd);
+		tmp = _strcat(tmp, "/");
+		tmp = _strcat(tmp, cmd);
 		/* check if file exist in full command */
 		if (stat(tmp, &st) == 0)
 		{
