@@ -18,7 +18,7 @@ int _operator(char **args)
 
 	for (cont = 0; f[cont].cmd; cont++)
 	{
-		if (strcmp(args[0], f[cont].cmd) == 0)
+		if (_strcmp(args[0], f[cont].cmd) == 0)
 		{
 			return (f[cont].cmd_f(NULL));
 		}
