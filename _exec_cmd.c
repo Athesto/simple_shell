@@ -32,7 +32,7 @@ int exec_cmd(char *cmd, char **args)
 	tmp = malloc(1024);
 	while ((ptr_dir = strtok(NULL, ":")))
 	{
-		strcpy(tmp, ptr_dir);
+		_strcpy(tmp, ptr_dir);
 		tmp = _strcat(tmp, "/");
 		tmp = _strcat(tmp, cmd);
 		/* check if file exist in full command */
