@@ -37,7 +37,7 @@ void loop(char *shellname)
 	ssize_t nbytes;		/* Number of bytes for getline funct */
 	char *PS1 = PROMPT;	/* Char variable for prompt */
 	int counter = 0;	/* loop counter */
-	char errmsg[64];	/* error message */
+	char errmsg[1024] = "";	/* error message */
 	pid_t child_pid;
 	int istty;
 
@@ -78,7 +78,22 @@ void loop(char *shellname)
 		{
 			wait(0);
 			if (args && *args && _strcmp(args[0], "exit") == 0)
-				exit(EXIT_SUCCESS);
+			{
+				if (!args[1])
+					exit(EXIT_SUCCESS);
+				else
+				{
+					_strcat(errmsg, shellname);
+					_strcat(errmsg, ": ");
+					strcatnum(errmsg, counter);
+					_strcat(errmsg, ": ");
+					_strcat(errmsg, args[0]);
+					_strcat(errmsg, ": Illegal number: ");
+					_strcat(errmsg, args[1]);
+					_strcat(errmsg, "\n");
+					_fputs(STDERR_FILENO, errmsg);
+				}
+			}
 		}
 		else if (child_pid == 0)
 		{
