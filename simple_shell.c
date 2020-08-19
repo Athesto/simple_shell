@@ -86,12 +86,12 @@ void loop(char *shellname)
 			if (exec_cmd(args[0], args) == -1)
 			{
 				/* sprintf(errmsg, "%s: %d: %s", shellname, counter, args[0]); */
-				strcat(errmsg, shellname);
-				strcat(errmsg, ": ");
+				_strcat(errmsg, shellname);
+				_strcat(errmsg, ": ");
 				strcatnum(errmsg, counter);
-				strcat(errmsg, ": ");
-				strcat(errmsg, args[0]);
-				strcat(errmsg, ": not found\n");
+				_strcat(errmsg, ": ");
+				_strcat(errmsg, args[0]);
+				_strcat(errmsg, ": not found\n");
 				fprintf(stderr, "%s", errmsg);
 
 				exit(EXIT_FAILURE);
