@@ -62,7 +62,6 @@ void loop(char *shellname)
 			break;			/* Exit infinite while */
 		}
 		line[nbytes - 1] = 0; /* Removing '\n' */
-		/* printf("(%d) %s\n", (int)nbytes, line); */
 
 		/* args[0] pointing to the input program */
 		args[0] = strtok(line, SPLITCHARS);
@@ -92,7 +91,6 @@ void loop(char *shellname)
 				_strcat(errmsg, args[0]);
 				_strcat(errmsg, ": not found\n");
 				_fputs(STDERR_FILENO, errmsg);
-				/*fprintf(stderr, "%s", errmsg);*/
 
 				exit(EXIT_FAILURE);
 			}

@@ -1,7 +1,7 @@
 #ifndef _HOLBERTON_H_
 #define _HOLBERTON_H_
 #include <stdlib.h>	/* malloc, exit, free */
-#include <stdio.h>	/* printf, getline, stdin */
+#include <stdio.h>	/* getline, stdin */
 #include <sys/types.h> /* ssize_t */
 #include <sys/wait.h> /* wait */
 #include <unistd.h>  /* size_t, write */
