@@ -25,7 +25,7 @@ int exec_cmd(char *cmd, char **args)
 		return (execve(cmd, args, NULL));
 	}
 	cp_PATH = _getpath();	/* cp_PATH pointing to PATH in ENVIRON */
-	cp_PATH = strdup(cp_PATH);
+	cp_PATH = _strdup(cp_PATH);
 	ptr_dir = cp_PATH;	/* ptr_dir pointing to cp_PATH */
 	/* move ptr_dir after "PATH=" in the cp_PATH */
 	ptr_dir = strtok(cp_PATH, "=");
