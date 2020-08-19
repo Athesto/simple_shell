@@ -27,6 +27,7 @@ typedef struct builtins
 
 int _getline(char **lineptr, size_t *n, FILE *stream);
 void _puts(char *str);
+void _fputs(int fd, char *str);
 int _putchar(char c);
 char *_getpath(void);
 int exec_cmd(char *cmd, char **args);
@@ -38,4 +39,5 @@ int _operator(char **args);
 char *_strcat(char *dest, char *src);
 int _strcmp(const char *s1, const char *s2);
 char *_strcpy(char *dest, const char *src);
+char *_strdup(const char *str);
 #endif /* _HOLBERTON_H_ */
