@@ -42,7 +42,7 @@ char *getFullcmd(char *cmd)
 	{
 		return (NULL);
 	}
-	strcat(fullcmd, cmd);
+	_strcat(fullcmd, cmd);
 	if (stat(fullcmd, &st) == 0) /* check if file exist in full command */
 	{
 		return (fullcmd);
