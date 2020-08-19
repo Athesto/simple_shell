@@ -30,14 +30,14 @@ int main(int argc, char *argv[])
  */
 void loop(char *shellname)
 {
-	char *line;				  /* Line pointer for getline funct */
-	char **args;			  /* List of Arguments */
-	int i;					  /* Arguments' counter */
+	char *line;			/* Line pointer for getline funct */
+	char **args;		/* List of Arguments */
+	int i;				/* Arguments' counter */
 	size_t bufsize = BUFSIZE; /* Size of buffer (line) */
-	ssize_t nbytes;			  /* Number of bytes for getline funct */
-	char *PS1 = PROMPT;		  /* Char variable for prompt */
-	int counter = 0;		  /* loop counter */
-	char errmsg[64];		  /* error message */
+	ssize_t nbytes;		/* Number of bytes for getline funct */
+	char *PS1 = PROMPT;	/* Char variable for prompt */
+	int counter = 0;	/* loop counter */
+	char errmsg[64];	/* error message */
 	pid_t child_pid;
 	int istty;
 
@@ -78,14 +78,13 @@ void loop(char *shellname)
 		if (child_pid > 0)
 		{
 			wait(0);
-			if (args && *args && strcmp(args[0], "exit") == 0)
+			if (args && *args && _strcmp(args[0], "exit") == 0)
 				exit(EXIT_SUCCESS);
 		}
 		else if (child_pid == 0)
 		{
 			if (exec_cmd(args[0], args) == -1)
 			{
-				/* sprintf(errmsg, "%s: %d: %s", shellname, counter, args[0]); */
 				_strcat(errmsg, shellname);
 				_strcat(errmsg, ": ");
 				strcatnum(errmsg, counter);
@@ -97,15 +96,6 @@ void loop(char *shellname)
 				exit(EXIT_FAILURE);
 			}
 		}
-		/* Printing arguments if it exist */
-		/*
-		*i = 0;
-		*while (args[i])
-		*{
-		*	printf("%s\n", args[i]);
-		*	i++;
-		*}
-		*/
 	}
 	free(line);
 	free(args); /* Free malloc */
@@ -152,7 +142,7 @@ char *strcatnum(char *str, int num)
 	while (tmp > 9)
 	{
 		tens = tens * 10;
-		 tmp = tmp / 10;
+		tmp = tmp / 10;
 	}
 
 	tmp = num;
