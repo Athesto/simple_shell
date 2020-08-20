@@ -13,6 +13,8 @@ int _operator(char **args)
 		{NULL, NULL}
 	};
 
+	if (!args || !*args || !**args)
+		exit(EXIT_SUCCESS);
 
 	for (cont = 0; f[cont].cmd; cont++)
 	{
