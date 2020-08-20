@@ -3,7 +3,7 @@ header=holberton.h
 args=
 in_files=*.c
 out_file=hsh
-run=
+run=norun
 
 build:
 	@test ! -e $(out_file) || rm $(out_file)			#if $(out_file) exist, delete it
