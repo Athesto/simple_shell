@@ -14,4 +14,13 @@ flags=-g -Wall -Wextra -Werror -pedantic
 	gcc $(flags)  5-p_func2.c ../_builtins_func.c
 
 6:
-	gcc $(flags)  6-*
+	gcc $(flags)  6-*.c
+
+8:
+	gcc $(flags)  8-*.c
+
+9:
+	gcc $(flags)  9-*.c ../_isanum.c
+
+10:
+	gcc $(flags)  10-*.c ../_atoi.c
