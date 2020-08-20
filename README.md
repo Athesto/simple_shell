@@ -111,7 +111,7 @@ $ /bin/ls
 ---
 Copy this link and paste in you terminal with the **git clone** option
 ```
-git clone git@github.com:julianamonr03/simple_shell.git
+git clone https://github.com/julianamonr03/simple_shell.gitsimple_shell.git
 ```
 **TIP**
 
@@ -128,4 +128,5 @@ Once you done installing it you are able to write *make build* in your terminal 
  [@julianamonr03](https://github.com/julianamonr03)
  Twitter:
  [@julianamonroy03](https://twitter.com/julianamonroy03)
+
 ----
