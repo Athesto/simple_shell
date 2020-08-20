@@ -13,14 +13,12 @@ int _operator(char **args)
 		{NULL, NULL}
 	};
 
-	if (!args || !*args || !**args)
-		exit(EXIT_SUCCESS);
 
 	for (cont = 0; f[cont].cmd; cont++)
 	{
 		if (_strcmp(args[0], f[cont].cmd) == 0)
 		{
-			return (f[cont].cmd_f(NULL));
+			return (f[cont].cmd_f(args));
 		}
 	}
 	return (-1);
@@ -30,7 +28,7 @@ int _operator(char **args)
  * @nothing: this is for compatibility
  * Return: 0 Always
  */
-int get_env(void *nothing)
+int get_env(char **nothing)
 {
 	int p_idx;
 
@@ -40,16 +38,25 @@ int get_env(void *nothing)
 		_putchar('\n');
 	}
 	(void)(nothing);
-	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 /**
  * get_exit - exit shell
- * @nothing: this is for compatibility
+ * @args: this is for compatibility
  * Return: 0 Always
  */
-int get_exit(void *nothing)
+int get_exit(char **args)
 {
-	exit(EXIT_SUCCESS);
-	(void)nothing;
+
+	if (!args[1])
+	{
+		exit(EXIT_SUCCESS);
+	}
+
+	else if (isanum(args[1]))
+	{
+		exit(_atoi(args[1]));
+	}
+	return (2);
 }

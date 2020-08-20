@@ -3,8 +3,10 @@
 #define MAGENTA "\033[35m"
 #define RSTFMT "\033[0m"
 #define PROMPT MAGENTA "#jgsh$ " RSTFMT
+#define ERROR_EXIT 1
+#define ERROR_CMD 2
+void myperror(int error_code, int counter, char *shellname, char **args);
 
-char *strcatnum(char *str, int num);
 /**
  * main - basic shell
  * @argc: argument counter
@@ -13,12 +15,14 @@ char *strcatnum(char *str, int num);
  */
 int main(int argc, char *argv[])
 {
+	int exit_status = EXIT_SUCCESS;
+
 	/* Redirect Interrupt signal to handler function */
 	signal(SIGINT, handler);
 
-	loop(argv[0]); /*infinite command loop*/
+	exit_status = loop(argv[0]); /*infinite command loop*/
 	(void)argc;
-	return (EXIT_SUCCESS);
+	return (exit_status);
 }
 
 #define BUFSIZE 1
@@ -27,8 +31,9 @@ int main(int argc, char *argv[])
 /**
  * loop - shell loop
  * @shellname: name of shell
+ * Return: Exit status
  */
-void loop(char *shellname)
+int loop(char *shellname)
 {
 	char *line;			/* Line pointer for getline funct */
 	char **args;		/* List of Arguments */
@@ -37,9 +42,10 @@ void loop(char *shellname)
 	ssize_t nbytes;		/* Number of bytes for getline funct */
 	char *PS1 = PROMPT;	/* Char variable for prompt */
 	int counter = 0;	/* loop counter */
-	char errmsg[1024] = "";	/* error message */
-	pid_t child_pid;
-	int istty;
+	pid_t child_pid;	/* pocess id */
+	int istty;			/* bool: check if interactive/keyboard */
+	int exit_status = 0; /* exit status */
+	int status;			/* child's status process */
 
 	/* Allocate memory for listing arguments */
 	args = malloc(NARGS * sizeof(*args));
@@ -63,8 +69,13 @@ void loop(char *shellname)
 		}
 		line[nbytes - 1] = 0; /* Removing '\n' */
 
+		/* Check if line was a Enter */
+		if (!line || !*line)
+			continue;
+
 		/* args[0] pointing to the input program */
 		args[0] = strtok(line, SPLITCHARS);
+
 
 		i = 1; /* starting from arg 1 */
 		/* args array pointng to the program arguments */
@@ -73,48 +84,29 @@ void loop(char *shellname)
 			i++; /* Increasing step */
 		}
 
+		exit_status = _operator(args);
+		if (exit_status == 2)
+		{
+			myperror(ERROR_EXIT, counter, shellname, args);
+			continue;
+		}
+
 		child_pid = fork();
 		if (child_pid > 0)
 		{
-			wait(0);
-			if (args && *args && _strcmp(args[0], "exit") == 0)
-			{
-				if (!args[1])
-					exit(EXIT_SUCCESS);
-				else
-				{
-					_strcat(errmsg, shellname);
-					_strcat(errmsg, ": ");
-					strcatnum(errmsg, counter);
-					_strcat(errmsg, ": ");
-					_strcat(errmsg, args[0]);
-					_strcat(errmsg, ": Illegal number: ");
-					_strcat(errmsg, args[1]);
-					_strcat(errmsg, "\n");
-					_fputs(STDERR_FILENO, errmsg);
-					if (istty != 1)
-						exit(2);
-				}
-			}
+			waitpid(child_pid, &status, WCONTINUED | WUNTRACED);
+			exit_status = WEXITSTATUS(status);
 		}
 		else if (child_pid == 0)
 		{
-			if (exec_cmd(args[0], args) == -1)
-			{
-				_strcat(errmsg, shellname);
-				_strcat(errmsg, ": ");
-				strcatnum(errmsg, counter);
-				_strcat(errmsg, ": ");
-				_strcat(errmsg, args[0]);
-				_strcat(errmsg, ": not found\n");
-				_fputs(STDERR_FILENO, errmsg);
-				exit(EXIT_FAILURE);
-			}
+			exec_cmd(args[0], args);
+			myperror(ERROR_CMD, counter, shellname, args);
+			exit(127);
 		}
 	}
 	free(line);
 	free(args); /* Free malloc */
-	(void)args;
+	return (exit_status);
 }
 /**
  * handler - Interruption routine
@@ -170,4 +162,39 @@ char *strcatnum(char *str, int num)
 	}
 
 	return (str);
+}
+
+/**
+ * myperror - my print error code
+ * @error_code: Error code
+ * @counter: Counter Errors
+ * @shellname: shellname
+ * @args: input arguments
+ */
+void myperror(int error_code, int counter, char *shellname, char **args)
+{
+	char errmsg[1024] = "";
+
+	switch (error_code)
+	{
+	case (ERROR_EXIT):
+		_strcat(errmsg, shellname);
+		_strcat(errmsg, ": ");
+		strcatnum(errmsg, counter);
+		_strcat(errmsg, ": ");
+		_strcat(errmsg, args[0]);
+		_strcat(errmsg, ": Illegal number: ");
+		_strcat(errmsg, args[1]);
+		_strcat(errmsg, "\n");
+		_fputs(STDERR_FILENO, errmsg);
+		break;
+	case (ERROR_CMD):
+		_strcat(errmsg, shellname);
+		_strcat(errmsg, ": ");
+		strcatnum(errmsg, counter);
+		_strcat(errmsg, ": ");
+		_strcat(errmsg, args[0]);
+		_strcat(errmsg, ": not found\n");
+		_fputs(STDERR_FILENO, errmsg);
+	}
 }

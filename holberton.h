@@ -9,7 +9,7 @@
 #include <signal.h> /* signal */
 #include <sys/stat.h> /* stat */
 #include <limits.h> /* MIN_INT */
-
+#include <errno.h>
 extern char **environ;
 
 typedef struct stat stat_t;
@@ -22,7 +22,7 @@ typedef struct stat stat_t;
 typedef struct builtins
 {
 	const char *cmd;
-	int (*cmd_f)(void *args);
+	int (*cmd_f)(char **args);
 } builtins_t;
 
 int _getline(char **lineptr, size_t *n, FILE *stream);
@@ -31,13 +31,17 @@ void _fputs(int fd, char *str);
 int _putchar(char c);
 char *_getpath(void);
 int exec_cmd(char *cmd, char **args);
-void loop(char *argv);
+int loop(char *argv);
 void handler(int);
-int get_env(void *nothing);
-int get_exit(void *args);
+int get_env(char **nothing);
+int get_exit(char **args);
 int _operator(char **args);
 char *_strcat(char *dest, char *src);
 int _strcmp(const char *s1, const char *s2);
 char *_strcpy(char *dest, const char *src);
 char *_strdup(const char *str);
+int isanum(char *str);
+unsigned int _strspn(char *s, char *accept);
+int _atoi(char *str);
+char *strcatnum(char *str, int num);
 #endif /* _HOLBERTON_H_ */
