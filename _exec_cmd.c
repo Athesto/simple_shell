@@ -16,10 +16,6 @@ int exec_cmd(char *cmd, char **args)
 	{
 		exit(EXIT_SUCCESS);
 	}
-	if (_operator(args) == 0)
-	{
-		return (0);
-	}
 	if (stat(cmd, &st) == 0) /* check if file exist in full command */
 	{
 		return (execve(cmd, args, NULL));
