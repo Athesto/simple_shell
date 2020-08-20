@@ -24,18 +24,18 @@ In This mini shell you can work in two differents modes, interactive and No inte
 
 .SH No Interactive mode
 
-echo 
-.B "[command]" 
+echo
+.B "[command]"
 | ./hsh
 
 .SH Interactive mode
 
 .B ./hsh
 
-.B $ 
+.B $
 ls
 
-.B $ 
+.B $
 env
 
 .B $

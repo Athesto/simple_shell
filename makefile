@@ -7,7 +7,6 @@ run=norun
 
 build:
 	@test ! -e $(out_file) || rm $(out_file)			#if $(out_file) exist, delete it
-	betty $(in_files) $(header)
 	gcc $(flags) $(in_files) -o $(out_file)
 	@if [ "$(run)" = "v" ]; then \
 		echo valgrind ./$(out_file) $(args); \
