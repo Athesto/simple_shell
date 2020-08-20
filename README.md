@@ -64,24 +64,68 @@ Environment variables are “stored”. The list is an array of strings, with th
 
 The shell reads its standard input from your terminal, and sends its standard output and standard error back to your terminal unless you tell it to send them elsewhere. Is line oriented; it does not process your commands until you press *Enter* to indicate the end of a line.
 
-The shell splits the line into tokens. A token is a command, variable, or other symbol recognized by the shell. It continues to build up a sequence of tokens until it comes to a reserved word function name, or operator
+The shell splits the line into tokens. A token is a command, variable, or other symbol recognized by the shell. It continues to build up a sequence of tokens until it comes to a reserved word function name, or operator.
 
 
-![Shell Example](Shell.png)
+![Shell Example](Assest/Shell.png)
 
 ---
+## Example
+----
 
+### **Non-Interactive mode**
+```bash
+echo "[command]" | ./hsh
+```
+-----
+### **Interactive mode**
+```bash
+./hsh
+
+$ ls
+```
+Output:
+```
+0-strcat.c  9-strcpy.c  Shell.png         _exec_cmd.c  _isanum.c   a.out    hack         makefile            sh-check.sh     tmp
+1-strdup.c  AUTHORS     _atoi.c           _getline.c   _putchar.c  betty.1  holberton.h  man_1_simple_shell  simple_shell.c  tst.sh
+3-strcmp.c  README.md   _builtins_func.c  _getpath.c   _puts.c     cmd      hsh          noexe               test            write.2.gz
+```
+-----
+```bash
+$ echo Holberton
+```
+Output:
+```
+Holberton
+```
+----
+```bash
+$ env
+
+$ pwd
+
+$ /bin/ls
+```
+
+## How install
+---
+Copy this link and paste in you terminal with the **git clone** option
+```
+git clone git@github.com:julianamonr03/simple_shell.git
+```
+**TIP**
+
+Once you done installing it you are able to write *make build* in your terminal and the shell will be running by then.
 
 ----
 ## AUTHORS
  Gustavo Mejía
- [@Athesto](https://github.com/Athesto)  
- Twitter: 
+ [@Athesto](https://github.com/Athesto)
+ Twitter:
  [@im_tavo](https://twitter.com/im_tavo)
 
- Juliana Monroy 
- [@julianamonr03](https://github.com/julianamonr03)  
- Twitter: 
+ Juliana Monroy
+ [@julianamonr03](https://github.com/julianamonr03)
+ Twitter:
  [@julianamonroy03](https://twitter.com/julianamonroy03)
-
 ----
