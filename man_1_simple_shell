@@ -22,7 +22,7 @@ The shell splits the line into tokens. A token is a command, variable, or other 
 
 In This mini shell you can work in two differents modes, interactive and No interactive.
 
-.SH No Interactive mode
+.SH Non-Interactive mode
 
 echo
 .B "[command]"
