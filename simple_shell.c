@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
  */
 int loop(char *shellname)
 {
-	char *line;			/* Line pointer for getline funct */
+	char *line = NULL;	/* Line pointer for getline funct */
 	char **args;		/* List of Arguments */
 	int i;				/* Arguments' counter */
 	size_t bufsize = BUFSIZE; /* Size of buffer (line) */
@@ -50,7 +50,7 @@ int loop(char *shellname)
 	/* Allocate memory for listing arguments */
 	args = malloc(NARGS * sizeof(*args));
 	/* Allocate memory for input data */
-	line = malloc(bufsize * sizeof(*line));
+	/* line = malloc(bufsize * sizeof(*line)); */
 
 	while (TRUE) /* Infinite while */
 	{
@@ -69,9 +69,6 @@ int loop(char *shellname)
 		}
 		line[nbytes - 1] = 0; /* Removing '\n' */
 
-		/* Check if line was a Enter */
-		if (!line || !*line)
-			continue;
 
 		/* args[0] pointing to the input program */
 		args[0] = strtok(line, SPLITCHARS);
@@ -83,6 +80,10 @@ int loop(char *shellname)
 		{
 			i++; /* Increasing step */
 		}
+
+		/* Check if line was a Enter */
+		if (args[0] == NULL)
+			continue;
 
 		exit_status = _operator(args);
 		if (exit_status == 2)
