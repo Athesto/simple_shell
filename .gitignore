@@ -3,3 +3,5 @@
 hsh
 a.out
 .vscode
+tmp/
+tags
