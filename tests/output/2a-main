@@ -1,0 +1,3 @@
+equals: OK
+m1 > m2: OK
+m1 < m2: OK
