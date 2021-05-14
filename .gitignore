@@ -1,7 +1,10 @@
 .*.swp
+ls
+cmd
 *#
 hsh
 a.out
 .vscode
 tmp/
 tags
+tests/learning/
