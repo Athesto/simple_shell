@@ -13,6 +13,6 @@ int main(void)
 
 	full_path = _which(cmd);
 	if (full_path != NULL)
-		printf("ERROR: FALSE CMD NOT NULL\n");
+		printf("ERROR: FALSE CMD IS NULL\n");
 	return (0);
 }
