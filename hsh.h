@@ -11,18 +11,32 @@
 
 extern char **environ;
 
+/**
+ * struct path_s - linked list of path
+ * @val: path name
+ * @next: next of path
+ */
+typedef struct path_s
+{
+	char *val;
+	struct path_s *next;
+} path_t;
+
+char **_strsplit(char *);
 char *_getenv(const char *);
-int _loop(char **);
-int _runcmd(char const *, char *const *);
-void _siginthandler(int);
-int _strcmp(const char *, const char *);
 char *_strcpy(char *, char *);
 char *_strdup(const char *);
-int _strncmp(const char *, const char *, size_t);
 char *_strtok(char *, const char *);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-size_t _strlen(const char *);
 char *_which(char *);
-char **_strsplit(char *);
+int _getpath(path_t **head);
+int _loop(char **);
+int _runcmd(char const *, char *const *);
+int _strcmp(const char *, const char *);
+int _strncmp(const char *, const char *, size_t);
+path_t *_addnode(path_t **head, char *str);
+size_t _strlen(const char *);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+void _freepath(path_t *head);
+void _siginthandler(int);
 
 #endif /* _HSH_H_ */
