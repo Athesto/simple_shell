@@ -28,6 +28,8 @@ char **_strsplit(char *str)
 		tmp = NULL;
 	}
 	free(copy);
+	if (n == 0)
+		return (NULL);
 
 	list = malloc(sizeof(*list) * (n + 1));
 	if (!list)
