@@ -8,7 +8,7 @@
 
 int _runcmd(char const *cmd, char *const *args)
 {
-	int status;
+	int status = 0;
 	pid_t my_pid;
 
 	my_pid = fork(); /* my_pid@child = 0; my_pid@parent = my_pid@child*/
