@@ -38,5 +38,6 @@ size_t _strlen(const char *);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 void _freepath(path_t *head);
 void _siginthandler(int);
+ssize_t _inputblock(char **line, size_t *);
 
 #endif /* _HSH_H_ */
