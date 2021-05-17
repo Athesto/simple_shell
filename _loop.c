@@ -15,23 +15,23 @@ int _loop(char **argv)
 	while (1)
 	{
 		counter++;
-		if (isatty(STDIN_FILENO))
-			printf("%s", PROMPT);
-		bytes = _getline(&line, &n, stdin);
+		bytes = _inputblock(&line, &n);
 		if (bytes == EOF)
-		{
-			if (isatty(STDIN_FILENO))
-				puts("");
 			break;
-		}
-
 		if (bytes == 1)
 			continue;
+
 
 		cmd_argv = _strsplit(line);
 		if (!cmd_argv)
 			continue;
 		full_path = cmd_argv[0];
+		if (access(full_path, X_OK) != 0)
+		{
+			free(cmd_argv);
+			continue;
+		}
+
 
 		if (_runcmd(full_path, cmd_argv) != 0)
 		{
