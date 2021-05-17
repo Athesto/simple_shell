@@ -1,14 +1,14 @@
 #include "../hsh.h"
 
 /**
- * main - test of _strsplit, empty string
+ * main - test of _strsplit, "\t\t\t\t" string
  * Return: always 0
  * Output:
  * 5
  */
 int main(void)
 {
-	char msg[] = "";
+	char *msg = "\t\t\t\t";
 	char **list;
 	int i;
 

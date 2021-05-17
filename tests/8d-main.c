@@ -1,14 +1,14 @@
 #include "../hsh.h"
 
 /**
- * main - test of _strsplit, NULL string
+ * main - test of _strsplit, "                   "
  * Return: always 0
  * Output:
  * 5
  */
 int main(void)
 {
-	char *msg = NULL;
+	char *msg = "                       ";
 	char **list;
 	int i;
 

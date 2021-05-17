@@ -14,8 +14,8 @@ int main(void)
 		NULL
 	};
 
-	_runcmd(cmd[0], cmd);
 	printf("start\n");
+	_runcmd(cmd[0], cmd);
 	printf("end\n");
 	return (0);
 }
