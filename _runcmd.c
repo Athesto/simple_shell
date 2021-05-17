@@ -8,7 +8,7 @@
 
 int _runcmd(char const *cmd, char *const *args)
 {
-	int status, error;
+	int status;
 	pid_t my_pid;
 
 	my_pid = fork(); /* my_pid@child = 0; my_pid@parent = my_pid@child*/
@@ -19,10 +19,10 @@ int _runcmd(char const *cmd, char *const *args)
 	}
 	else
 	{
-		error = waitpid(my_pid, &status, 0);
-		if (!error)
+		waitpid(my_pid, &status, 0);
+		if (status)
 		{
-			perror("ERROR\n");
+			return (1);
 		}
 	}
 	return (0);

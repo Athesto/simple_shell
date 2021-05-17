@@ -31,19 +31,16 @@ int _loop(char **argv)
 		cmd_argv = _strsplit(line);
 		if (!cmd_argv)
 			continue;
+		full_path = cmd_argv[0];
 
-		full_path = _which(cmd_argv[0]);
-		if (!full_path)
+		if (_runcmd(full_path, cmd_argv) != 0)
 		{
-			free(cmd_argv);
-			fprintf(stderr, "%s: %d: %s: not found\n", argv[0], counter, line);
 			status = 127;
-			continue;
+			fprintf(stderr, "%s: %d: %s: not found\n", argv[0], counter, line);
 		}
-		_runcmd(full_path, cmd_argv);
-		free(full_path);
+		else
+			status = 0;
 		free(cmd_argv);
-		status = 0;
 	}
 	free(line);
 	return (status);
