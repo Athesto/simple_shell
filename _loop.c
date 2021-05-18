@@ -8,7 +8,7 @@
 int _loop(char **argv)
 {
 	char **cmd_argv, *full_path, *line = NULL;
-	int counter = 0, status = 0;
+	int counter = 0, status = 0, _builtins_status;
 	size_t n = 0;
 	ssize_t bytes;
 
@@ -21,10 +21,15 @@ int _loop(char **argv)
 		if (bytes == 1)
 			continue;
 
-
 		cmd_argv = _strsplit(line);
 		if (!cmd_argv)
 			continue;
+		_builtins_status = _builtins(cmd_argv);
+		if (_builtins_status == 1)
+		{
+			free(cmd_argv);
+			break;
+		}
 		full_path =  _which(cmd_argv[0]);
 		if (!full_path)
 		{
@@ -33,8 +38,8 @@ int _loop(char **argv)
 			free(cmd_argv);
 			continue;
 		}
-		_runcmd(full_path, cmd_argv);
 
+		_runcmd(full_path, cmd_argv);
 		status = 0;
 		free(full_path);
 		free(cmd_argv);
