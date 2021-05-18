@@ -24,6 +24,7 @@ typedef struct path_s
 
 char **_strsplit(char *);
 char *_getenv(const char *);
+char *_strclear(char const *str, char const *token);
 char *_strcpy(char *, char *);
 char *_strdup(const char *);
 char *_strtok(char *, const char *);
