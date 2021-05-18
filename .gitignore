@@ -6,5 +6,5 @@ hsh
 a.out
 .vscode
 tmp/
-tags
+.tags
 tests/learning/
