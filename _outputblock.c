@@ -34,7 +34,7 @@ int _outputblock(char **input_line, char **argv, int *status, int *counter)
 			free(cmd_argv);
 			return (1);
 		}
-		status = 0;
+		*status = 0;
 		if (_runcmd(full_path, cmd_argv) != 0)
 			*status = 2;
 		free(full_path);
