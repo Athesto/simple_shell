@@ -5,7 +5,7 @@ void _printenv(void);
  * @argv: input arguments
  * Return: 0 not found
  */
-int _builtins(char **argv)
+int _builtins(char **argv, int *master_status)
 {
 	int status = 0;
 	char *copy_cmd;
@@ -14,6 +14,7 @@ int _builtins(char **argv)
 	if (_strncmp(copy_cmd, "exit", _strlen("exit")) == 0)
 	{
 		status = 1;
+		*master_status = _atoi(argv[1]);
 	}
 
 	if (_strncmp(copy_cmd, "env", _strlen("env")) == 0)

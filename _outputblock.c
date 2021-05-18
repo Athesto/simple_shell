@@ -17,7 +17,7 @@ int _outputblock(char **input_line, char **argv, int *status, int *counter)
 	cmd_argv = _strsplit(line);
 	if (cmd_argv)
 	{
-		_builtins_status = _builtins(cmd_argv);
+		_builtins_status = _builtins(cmd_argv, status);
 		if (_builtins_status > 0)
 		{
 			free(cmd_argv);
