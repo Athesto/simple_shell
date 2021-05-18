@@ -38,9 +38,10 @@ int _loop(char **argv)
 			free(cmd_argv);
 			continue;
 		}
-
-		_runcmd(full_path, cmd_argv);
 		status = 0;
+
+		if (_runcmd(full_path, cmd_argv) != 0)
+			status = 2;
 		free(full_path);
 		free(cmd_argv);
 	}
