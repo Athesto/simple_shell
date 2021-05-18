@@ -1,4 +1,5 @@
 #include "hsh.h"
+void _printenv(void);
 /**
  * _builtins - check for builtins functions
  * @argv: input arguments
@@ -14,7 +15,27 @@ int _builtins(char **argv)
 	{
 		status = 1;
 	}
+
+	if (_strncmp(copy_cmd, "env", _strlen("env")) == 0)
+	{
+		_printenv();
+		status = 2;
+	}
 	free(copy_cmd);
 	return (status);
 }
 
+/**
+ * _printenv - print environment
+ */
+void _printenv(void)
+{
+	int i;
+
+	if (!environ)
+		return;
+
+	for (i = 0; environ[i]; i++)
+		printf("%s\n", environ[i]);
+
+}
