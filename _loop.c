@@ -28,18 +28,14 @@ int _loop(char **argv)
 		full_path =  _which(cmd_argv[0]);
 		if (!full_path)
 		{
+			status = 127;
+			fprintf(stderr, "%s: %d: %s: not found\n", argv[0], counter, line);
 			free(cmd_argv);
 			continue;
 		}
+		_runcmd(full_path, cmd_argv);
 
-
-		if (_runcmd(full_path, cmd_argv) != 0)
-		{
-			status = 127;
-			fprintf(stderr, "%s: %d: %s: not found\n", argv[0], counter, line);
-		}
-		else
-			status = 0;
+		status = 0;
 		free(full_path);
 		free(cmd_argv);
 	}
