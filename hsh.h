@@ -29,8 +29,10 @@ char *_strcpy(char *, char *);
 char *_strdup(const char *);
 char *_strtok(char *, const char *);
 char *_which(char *);
+int _builtins(char **argv);
 int _getpath(path_t **head);
 int _loop(char **);
+int _outputblock(char **input_line, char **argv, int *status, int *counter);
 int _runcmd(char const *, char *const *);
 int _strcmp(const char *, const char *);
 int _strncmp(const char *, const char *, size_t);
@@ -40,6 +42,5 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 ssize_t _inputblock(char **line, size_t *);
 void _freepath(path_t *head);
 void _siginthandler(int);
-int _builtins(char **argv);
 
 #endif /* _HSH_H_ */

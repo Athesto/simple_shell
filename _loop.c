@@ -7,8 +7,8 @@
  */
 int _loop(char **argv)
 {
-	char **cmd_argv, *full_path, *line = NULL;
-	int counter = 0, status = 0, _builtins_status;
+	char  *line = NULL;
+	int counter = 0, status = 0, out_status;
 	size_t n = 0;
 	ssize_t bytes;
 
@@ -20,30 +20,12 @@ int _loop(char **argv)
 			break;
 		if (bytes == 1)
 			continue;
-
-		cmd_argv = _strsplit(line);
-		if (!cmd_argv)
-			continue;
-		_builtins_status = _builtins(cmd_argv);
-		if (_builtins_status == 1)
-		{
-			free(cmd_argv);
+		out_status = _outputblock(&line, argv, &status, &counter);
+		if (out_status == 1)
 			break;
-		}
-		full_path =  _which(cmd_argv[0]);
-		if (!full_path)
-		{
-			status = 127;
-			fprintf(stderr, "%s: %d: %s: not found\n", argv[0], counter, line);
-			free(cmd_argv);
+		if (out_status == 2)
 			continue;
-		}
-		status = 0;
 
-		if (_runcmd(full_path, cmd_argv) != 0)
-			status = 2;
-		free(full_path);
-		free(cmd_argv);
 	}
 	free(line);
 	return (status);
