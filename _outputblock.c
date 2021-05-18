@@ -32,7 +32,7 @@ int _outputblock(char **input_line, char **argv, int *status, int *counter)
 			*status = 127;
 			fprintf(stderr, strerror, argv[0], *counter, line);
 			free(cmd_argv);
-			return (1);
+			return (2);
 		}
 		*status = 0;
 		if (_runcmd(full_path, cmd_argv) != 0)
