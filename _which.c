@@ -4,7 +4,7 @@ char *_strclear(char const *str, char const *token);
 /**
  * _which - locate the command
  * @cmd: command to search
- * Return: full path of the program
+ * Return: full path of the program, It needs to free
  */
 char *_which(char *cmd)
 {
@@ -30,7 +30,7 @@ char *_which(char *cmd)
 			len = _strlen(runner->val);
 			len += _strlen("/");
 			len += _strlen(copy_cmd);
-			full_path = malloc(sizeof(*full_path) + len + 1);
+			full_path = malloc(sizeof(*full_path) + (len + 1));
 			_strcpy(full_path, runner->val);
 			if (*full_path != '\0')
 				_strcpy(full_path + _strlen(full_path), "/");

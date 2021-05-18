@@ -25,8 +25,8 @@ int _loop(char **argv)
 		cmd_argv = _strsplit(line);
 		if (!cmd_argv)
 			continue;
-		full_path = cmd_argv[0];
-		if (access(full_path, X_OK) != 0)
+		full_path =  _which(cmd_argv[0]);
+		if (!full_path)
 		{
 			free(cmd_argv);
 			continue;
@@ -40,6 +40,7 @@ int _loop(char **argv)
 		}
 		else
 			status = 0;
+		free(full_path);
 		free(cmd_argv);
 	}
 	free(line);
