@@ -1,5 +1,6 @@
 #include "hsh.h"
 char *_strclear(char const *str, char const *token);
+int _noneedpath(char const *str);
 
 /**
  * _which - locate the command
@@ -18,7 +19,7 @@ char *_which(char *cmd)
 		return (NULL);
 
 	copy_cmd = _strclear(cmd, " \t");
-	if (copy_cmd == NULL || (*copy_cmd == '/' && access(copy_cmd, X_OK) == 0))
+	if (!_noneedpath(copy_cmd) && access(copy_cmd, X_OK) == 0)
 		return (copy_cmd);
 
 	status = _getpath(&path_list);
@@ -27,9 +28,7 @@ char *_which(char *cmd)
 		runner = path_list;
 		while (runner)
 		{
-			len = _strlen(runner->val);
-			len += _strlen("/");
-			len += _strlen(copy_cmd);
+			len = _strlen(runner->val) + _strlen("/") + _strlen(copy_cmd);
 			full_path = malloc(sizeof(*full_path) + (len + 1));
 			_strcpy(full_path, runner->val);
 			if (*full_path != '\0')
@@ -79,4 +78,35 @@ char *_strclear(char const *str, char const *token)
 	}
 	return (output);
 
+}
+/**
+ * _noneedpath - check if the command don't need a path
+ * @str: command
+ * Return: 0 if don't need a path or 1 if it's NULL or 2 if it don't found
+ */
+int _noneedpath(char const *str)
+{
+	int len;
+
+	if (!str)
+		return (1);
+
+	len = _strlen(str);
+
+	if (str[0] == '/')
+		return (0);
+
+	if (len < 2)
+		return (1);
+
+	if (str[0] == '.' && str[1] == '/')
+		return (0);
+
+	if (len < 3)
+		return (1);
+
+	if (str[0] == '.' && str[1] == '.' && str[2]  == '/')
+		return (0);
+
+	return (2);
 }
