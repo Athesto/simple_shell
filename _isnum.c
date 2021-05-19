@@ -13,7 +13,7 @@ int _isnum(const char * const str)
 		runner++;
 
 	for (i = 0; runner[i]; i++)
-		if (i <= '0' || '9' <= i)
+		if (runner[i] < '0' || '9' < runner[i])
 			return (0);
 	return (1);
 }
