@@ -12,7 +12,8 @@ int _outputblock(char **input_line, char **argv, int *status, int *counter)
 	char *line = *input_line;
 	char **cmd_argv, *full_path;
 	int _builtins_status;
-	char *strerror = "%s: %d: %s: not found\n";
+	char *strerror1 = "%s: %d: %s: not found\n";
+	char *strerror2 = "%s: %d: exit: Ilegal number: %d\n";
 
 	cmd_argv = _strsplit(line);
 	if (cmd_argv)
@@ -25,12 +26,19 @@ int _outputblock(char **input_line, char **argv, int *status, int *counter)
 				return (1);
 			if (_builtins_status == 2)
 				return (2);
+			if (_builtins_status == 3)
+			{
+				fprintf(stderr, strerror2, argv[0], *counter, *status);
+				if (*status < 0)
+					*status = 2;
+				return (2);
+			}
 		}
 		full_path =  _which(cmd_argv[0]);
 		if (!full_path)
 		{
 			*status = 127;
-			fprintf(stderr, strerror, argv[0], *counter, line);
+			fprintf(stderr, strerror1, argv[0], *counter, line);
 			free(cmd_argv);
 			return (2);
 		}
