@@ -13,7 +13,7 @@ int _outputblock(char **input_line, char **argv, int *status, int *counter)
 	char **cmd_argv, *full_path;
 	int _builtins_status;
 	char *strerror1 = "%s: %d: %s: not found\n";
-	char *strerror2 = "%s: %d: exit: Ilegal number: %d\n";
+	char *strerror2 = "%s: %d: exit: Illegal number: %d\n";
 
 	cmd_argv = _strsplit(line);
 	if (cmd_argv)
