@@ -5,18 +5,21 @@
  */
 int _atoi(char *str)
 {
-	int i = 0; /* output */
+	int n = 0; /* output */
 	int sign = 1; /* sign multiplier 1/-1 */
-	int idx_digt = 0; /* index for digit */
+	int i = 0; /* index for digit */
 
 	if (str[0] == '-')
 	{
 		sign = -1;
-		idx_digt++;
+		i++;
 	}
 
-	for (idx_digt = 0; str[idx_digt] != '\0'; ++idx_digt)
-		i = i * 10 + str[idx_digt] - '0';
+	while (str[i])
+	{
+		n = n * 10 + str[i] - '0';
+		i++;
+	}
 
-	return (sign * i);
+	return (sign * n);
 }
