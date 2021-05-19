@@ -16,10 +16,13 @@ int _builtins(char **argv, int *master_status)
 	if (_strncmp(copy_cmd, "exit", _strlen("exit")) == 0)
 	{
 		status = 1;
-		tmp = _atoi(argv[1]);
-		*master_status = tmp;
-		if (tmp < 0)
-			status = 3;
+		if (argv[1])
+		{
+			tmp = _atoi(argv[1]);
+			*master_status = tmp;
+			if (tmp < 0)
+				status = 3;
+		}
 	}
 
 	if (_strncmp(copy_cmd, "env", _strlen("env")) == 0)
