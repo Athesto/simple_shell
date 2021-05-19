@@ -18,10 +18,18 @@ int _builtins(char **argv, int *master_status)
 		status = 1;
 		if (argv[1])
 		{
-			tmp = _atoi(argv[1]);
-			*master_status = tmp;
-			if (tmp < 0)
+			if (_isnum(argv[1]))
+			{
+				tmp = _atoi(argv[1]);
+				*master_status = tmp;
+				if (tmp < 0)
+					status = 3;
+			}
+			else
+			{
 				status = 3;
+				*master_status = -1;
+			}
 		}
 	}
 
