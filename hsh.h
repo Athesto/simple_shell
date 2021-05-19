@@ -32,6 +32,7 @@ char *_which(char *);
 int _atoi(char *str);
 int _builtins(char **argv, int *status);
 int _getpath(path_t **head);
+int _isnum(const char * const str);
 int _loop(char **);
 int _outputblock(char **input_line, char **argv, int *status, int *counter);
 int _runcmd(char const *, char *const *);
