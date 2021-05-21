@@ -2,7 +2,7 @@
 #define _HSH_H_
 #include <stdio.h> /* printf/puts */
 #include <stdlib.h> /* malloc/free/exit */
-#include <unistd.h> /* access/execve/fork/isatty */
+#include <unistd.h> /* access/execve/fork/isatty/chdir */
 #include <sys/wait.h> /* wait  */
 
 #define MAGENTA "\033[35m"
@@ -35,6 +35,7 @@ int _getpath(path_t **head);
 int _isnum(const char * const str);
 int _loop(char **);
 int _outputblock(char **input_line, char **argv, int *status, int *counter);
+int _perror(int code, ...);
 int _runcmd(char const *, char *const *);
 int _strcmp(const char *, const char *);
 int _strncmp(const char *, const char *, size_t);
