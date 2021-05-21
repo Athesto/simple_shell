@@ -15,9 +15,9 @@ int _outputblock(char **input, int *program_status, char **argv, int *counter)
 	int status = SUCCESS;
 
 	cmd_argv = _strsplit(line);
-	_strclear2(cmd_argv[0]);
 	if (cmd_argv)
 	{
+		_strclear2(cmd_argv[0]);
 		status = _builtins(cmd_argv, program_status, program, *counter);
 		if (status == NOTFOUND)
 		{
