@@ -14,7 +14,7 @@ int _runcmd(char const *cmd, char *const *args)
 	my_pid = fork(); /* my_pid@child = 0; my_pid@parent = my_pid@child*/
 	if (my_pid == 0)
 	{
-		status = execve(cmd, args, NULL);
+		status = execve(cmd, args, environ);
 		exit(status);
 	}
 	else
