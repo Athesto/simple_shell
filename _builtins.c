@@ -41,27 +41,41 @@ int _builtins(char **argv, int *program_status, char *program, int counter)
 int _chdir(char **argv, int *program_status, char *program, int counter)
 {
 	int status = CONTINUE;
+	int print_old = 0;
 	char *working_dir = _getenv("PWD");
 	char *home = _getenv("HOME");
 	char *old = _getenv("OLDPWD");
 	char *dst = argv[1];
+	char *cwd;
 
 	*program_status = 0;
 	if (!dst)
 		dst = home;
 	else if (_strcmp(dst, "-") == 0)
+	{
+		print_old = 1;
 		dst = old;
+	}
 
 	if (dst)
 	{
 		status = chdir(dst);
-		if (status == -1)
+		if (status != -1)
+		{
+			_strcpy(working_dir, dst);
+			if (print_old)
+			{
+				cwd = getcwd(NULL, 0);
+				puts(cwd);
+				free(cwd);
+			}
+		}
+		else
 		{
 			_perror(3, program, counter, dst);
 			*program_status = 2;
+
 		}
-		else
-			_strcpy(working_dir, dst);
 	}
 	return (status);
 }
