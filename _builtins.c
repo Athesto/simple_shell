@@ -1,5 +1,6 @@
 #include "hsh.h"
 int _printenv(void);
+int _bexit(char **argv, int *program_status, char *program, int counter);
 /**
  * _builtins - check for builtins functions
  * @argv: input arguments
@@ -12,25 +13,9 @@ int _builtins(char **argv, int *master_status)
 	int tmp;
 	char *copy_cmd;
 
-	copy_cmd = _strclear(argv[0], " \t");
-	if (_strncmp(copy_cmd, "exit", _strlen("exit")) == 0)
+	if (_strncmp(cmd, "exit", _strlen("exit")) == 0)
 	{
-		status = 1;
-		if (argv[1])
-		{
-			if (_isnum(argv[1]))
-			{
-				tmp = _atoi(argv[1]);
-				*master_status = tmp;
-				if (tmp < 0)
-					status = 3;
-			}
-			else
-			{
-				status = 3;
-				*master_status = -1;
-			}
-		}
+		status = _bexit(argv, program_status, program,  counter);
 	}
 
 	if (_strncmp(copy_cmd, "env", _strlen("env")) == 0)
@@ -58,5 +43,32 @@ int _printenv(void)
 
 	return (CONTINUE);
 }
+/**
+ * _bexit - builtin exit
+ * @argv: arguments for the program
+ * @program_status: status of the shell (for errors)
+ * @program: name of the shell (for errors)
+ * @counter: shell counter (for errors)
+ * Return: BREAK=1 CONTINUE=2
+ */
+int _bexit(char **argv, int *program_status, char *program, int counter)
+{
+	int status, tmp;
 
+	status = BREAK;
+	*program_status = 0;
+	if (argv[1])
+	{
+		if (_isnum(argv[1]))
+		{
+			tmp = _atoi(argv[1]);
+			*program_status = tmp;
+			if (tmp >= 0)
+				return (BREAK);
+		}
+		_perror(2, program, counter, argv[1]);
+		*program_status = 2;
+		status = CONTINUE;
+	}
+	return (status);
 }
