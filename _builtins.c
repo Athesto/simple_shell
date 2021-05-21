@@ -1,5 +1,5 @@
 #include "hsh.h"
-void _printenv(void);
+int _printenv(void);
 /**
  * _builtins - check for builtins functions
  * @argv: input arguments
@@ -44,15 +44,19 @@ int _builtins(char **argv, int *master_status)
 
 /**
  * _printenv - print environment
+ * Return: 1=CONTINUE
  */
-void _printenv(void)
+int _printenv(void)
 {
 	int i;
 
-	if (!environ)
-		return;
+	if (environ)
+	{
+		for (i = 0; environ[i]; i++)
+			printf("%s\n", environ[i]);
+	}
 
-	for (i = 0; environ[i]; i++)
-		printf("%s\n", environ[i]);
+	return (CONTINUE);
+}
 
 }

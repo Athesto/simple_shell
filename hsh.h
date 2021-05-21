@@ -8,6 +8,10 @@
 #define MAGENTA "\033[35m"
 #define RSTFMT "\033[0m"
 #define PROMPT MAGENTA "jgsh$ " RSTFMT
+#define SUCCESS 0
+#define BREAK 1
+#define CONTINUE 2
+#define NOTFOUND 3
 
 extern char **environ;
 
