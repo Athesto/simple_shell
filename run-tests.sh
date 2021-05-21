@@ -15,6 +15,18 @@ function main()
     [[ $1 =~ ^(main)$ ]]  && vim "$2"-main.c && exit
     [[ $1 =~ ^(run)$ ]]  && ./a.out && exit
     [[ $1 =~ ^(scripts)$ ]]  && cd "$HOLBERTON_TEST_REPO_PATH" && ./check_simple_shell.bash && exit;
+    if [[ $1 =~ ^(checker|-c)$ ]]; then
+        if [[ -z $2 ]]; then
+            for file in ./checker/*.bash; do
+                ./checker/checker.sh ../hsh  "$file"
+            done
+        elif [[ $2 == "file" ]]; then
+                ./checker/checker.sh ../hsh  ../file
+        else
+                ./checker/checker.sh ../hsh  ./checker/"${2}*.bash"
+        fi
+        exit
+    fi
 
     if (( $# == 0 )); then
         RULES="$(find -maxdepth 1 -name '*.c' | cut -d- -f1 | cut -d/ -f2 | sort)"
