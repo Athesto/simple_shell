@@ -63,19 +63,18 @@ int _chdir(char **argv, int *program_status, char *program, int counter)
 		if (status != -1)
 		{
 			_strcpy(working_dir, dst);
-			if (print_old)
-			{
-				cwd = getcwd(NULL, 0);
-				puts(cwd);
-				free(cwd);
-			}
 		}
 		else
 		{
 			_perror(3, program, counter, dst);
 			*program_status = 2;
-
 		}
+	}
+	if (print_old)
+	{
+		cwd = getcwd(NULL, 0);
+		puts(cwd);
+		free(cwd);
 	}
 	return (status);
 }

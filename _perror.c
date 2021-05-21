@@ -21,7 +21,7 @@ int _perror(int code, ...)
 		"NO ERRORS",
 		"%s: %d: %s: not found\n",
 		"%s: %d: exit: Illegal number: %s\n",
-		"%s: %d: cd: can't cd to %s",
+		"%s: %d: cd: can't cd to %s\n",
 		NULL
 	};
 
