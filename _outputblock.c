@@ -1,13 +1,13 @@
 #include "hsh.h"
 /**
  * _outputblock - run the command and print
- * @input_line: values
+ * @input: input from _getline
  * @argv: values
- * @status: ?
+ * @program_status: ?
  * @counter: ?
- * Return: 0=nothing 1=break 2=continue
+ * Return: 0=SUCCESS 1=BREAK 2=CONTINUE 3=NOTFOUND
  */
-int _outputblock(char **input_line, char **argv, int *status, int *counter)
+int _outputblock(char **input, int *program_status, char **argv, int *counter)
 {
 	char *line = *input_line;
 	char **cmd_argv, *full_path;

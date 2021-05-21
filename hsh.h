@@ -38,7 +38,7 @@ int _builtins(char **argv, int *status, char *program, int counter);
 int _getpath(path_t **head);
 int _isnum(const char * const str);
 int _loop(char **);
-int _outputblock(char **input_line, char **argv, int *status, int *counter);
+int _outputblock(char **input, int *program_status, char **argv, int *counter);
 int _perror(int code, ...);
 int _runcmd(char const *, char *const *);
 int _strcmp(const char *, const char *);

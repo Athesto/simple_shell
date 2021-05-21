@@ -20,12 +20,11 @@ int _loop(char **argv)
 			break;
 		if (bytes == 1)
 			continue;
-		out_status = _outputblock(&line, argv, &status, &counter);
-		if (out_status == 1)
+		out_status = _outputblock(&line, &status, argv, &counter);
+		if (out_status == BREAK)
 			break;
-		if (out_status == 2)
+		if (out_status == CONTINUE)
 			continue;
-
 	}
 	free(line);
 	return (status);
