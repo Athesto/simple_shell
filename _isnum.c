@@ -7,8 +7,8 @@
 int _isnum(const char * const str)
 {
 	int i;
-
 	const char *runner = str;
+
 	if (*runner == '-')
 		runner++;
 
