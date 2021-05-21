@@ -1,6 +1,7 @@
 #include "hsh.h"
 int _printenv(void);
 int _bexit(char **argv, int *program_status, char *program, int counter);
+int _chdir(char **argv, int *program_status, char *program, int counter);
 /**
  * _builtins - check for builtins functions
  * @argv: input arguments
@@ -29,6 +30,41 @@ int _builtins(char **argv, int *program_status, char *program, int counter)
 	return (status);
 }
 
+/**
+ * _chdir - change directory
+ * @argv: arguments for the program
+ * @program_status: status of the shell (for errors)
+ * @program: name of the shell (for errors)
+ * @counter: shell counter (for errors)
+ * Return: BREAK=1 CONTINUE=2
+ */
+int _chdir(char **argv, int *program_status, char *program, int counter)
+{
+	int status = CONTINUE;
+	char *working_dir = _getenv("PWD");
+	char *home = _getenv("HOME");
+	char *old = _getenv("OWD");
+	char *dst = argv[1];
+
+	*program_status = 0;
+	if (!dst)
+		dst = home;
+	else if (_strcmp(dst, "-") == 0)
+		dst = old;
+
+	if (dst)
+	{
+		status = chdir(dst);
+		if (status == -1)
+		{
+			_perror(3, program, counter, dst);
+			*program_status = 2;
+		}
+		else
+			_strcpy(working_dir, dst);
+	}
+	return (status);
+}
 /**
  * _printenv - print environment
  * Return: 1=CONTINUE
