@@ -4,26 +4,28 @@ int _bexit(char **argv, int *program_status, char *program, int counter);
 /**
  * _builtins - check for builtins functions
  * @argv: input arguments
- * @master_status: the status of exit
- * Return: 0 not found
+ * @program_status: the status of exit
+ * @program: ?
+ * @counter: ?
+ * Return: 1=BREAK 2=CONTINUE 3=NOTFOUND
  */
-int _builtins(char **argv, int *master_status)
+int _builtins(char **argv, int *program_status, char *program, int counter)
 {
-	int status = 0;
-	int tmp;
-	char *copy_cmd;
+	int status = NOTFOUND;
+	char *cmd = argv[0];
 
 	if (_strncmp(cmd, "exit", _strlen("exit")) == 0)
 	{
 		status = _bexit(argv, program_status, program,  counter);
 	}
-
-	if (_strncmp(copy_cmd, "env", _strlen("env")) == 0)
+	else if (_strncmp(cmd, "cd", _strlen("cd")) == 0)
 	{
-		_printenv();
-		status = 2;
+		status = _chdir(argv, program_status, program,  counter);
 	}
-	free(copy_cmd);
+	else if (_strncmp(cmd, "env", _strlen("env")) == 0)
+	{
+		status = _printenv();
+	}
 	return (status);
 }
 

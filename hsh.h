@@ -34,7 +34,7 @@ char *_strdup(const char *);
 char *_strtok(char *, const char *);
 char *_which(char *);
 int _atoi(char *str);
-int _builtins(char **argv, int *status);
+int _builtins(char **argv, int *status, char *program, int counter);
 int _getpath(path_t **head);
 int _isnum(const char * const str);
 int _loop(char **);
