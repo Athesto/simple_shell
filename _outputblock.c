@@ -9,43 +9,34 @@
  */
 int _outputblock(char **input, int *program_status, char **argv, int *counter)
 {
-	char *line = *input_line;
+	char *line = *input;
+	char *program = argv[0];
 	char **cmd_argv, *full_path;
-	int _builtins_status;
-	char *strerror1 = "%s: %d: %s: not found\n";
-	char *strerror2 = "%s: %d: exit: Illegal number: %s\n";
+	int status = SUCCESS;
 
 	cmd_argv = _strsplit(line);
+	_strclear2(cmd_argv[0]);
 	if (cmd_argv)
 	{
-		_builtins_status = _builtins(cmd_argv, status);
-		if (_builtins_status > 0)
+		status = _builtins(cmd_argv, program_status, program, *counter);
+		if (status == NOTFOUND)
 		{
-			if (_builtins_status == 3)
+			full_path =  _which(cmd_argv[0]);
+			if (full_path)
 			{
-				fprintf(stderr, strerror2, argv[0], *counter, cmd_argv[1]);
-				if (*status < 0)
-					*status = 2;
+				*program_status = 0;
+				if (_runcmd(full_path, cmd_argv) != 0)
+					*program_status = 2;
+				free(full_path);
 			}
-			free(cmd_argv);
-			if (_builtins_status == 1)
-				return (1);
-			if (_builtins_status == 2 || _builtins_status == 3)
-				return (2);
+			else
+			{
+				*program_status = 127;
+				_perror(1, program, *counter, line);
+			}
+			status = CONTINUE;
 		}
-		full_path =  _which(cmd_argv[0]);
-		if (!full_path)
-		{
-			*status = 127;
-			fprintf(stderr, strerror1, argv[0], *counter, line);
-			free(cmd_argv);
-			return (2);
-		}
-		*status = 0;
-		if (_runcmd(full_path, cmd_argv) != 0)
-			*status = 2;
-		free(full_path);
 		free(cmd_argv);
 	}
-	return (0);
+	return (status);
 }
