@@ -43,7 +43,7 @@ int _chdir(char **argv, int *program_status, char *program, int counter)
 	int status = CONTINUE;
 	char *working_dir = _getenv("PWD");
 	char *home = _getenv("HOME");
-	char *old = _getenv("OWD");
+	char *old = _getenv("OLDPWD");
 	char *dst = argv[1];
 
 	*program_status = 0;
@@ -94,7 +94,6 @@ int _bexit(char **argv, int *program_status, char *program, int counter)
 	int status, tmp;
 
 	status = BREAK;
-	*program_status = 0;
 	if (argv[1])
 	{
 		if (_isnum(argv[1]))
